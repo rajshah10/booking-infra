@@ -1,0 +1,21 @@
+# An image is a static, read-only template that bundles everything needed to run an application—including the code, system libraries, configuration files, and dependencies
+
+# A container, on the other hand, is the active, isolated instance created by running that image.
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: booking-mysql
+    restart: unless-stopped 
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword 
+      MYSQL_DATABASE: booking_auth
+      MYSQL_USER: booking_user 
+      MYSQL_PASSWORD: booking_password 
+    ports:
+      - "3307:3306" # Maps port 3306 on the host machine to port 3306 in the container
+    volumes:
+      - mysql-data:/var/lib/mysql # Mounts a named volume to persist database data
+
+volumes:
+  mysql-data: # Defines the named volume used by the MySQL service
